@@ -65,6 +65,9 @@
     <string name="text_info">Info</string>
     <string name="delete">Delete</string>
 
+    <string name="forgot_password">Forgot password</string>
+    <string name="edit">Edit</string>
+
 </resources>
 
 
