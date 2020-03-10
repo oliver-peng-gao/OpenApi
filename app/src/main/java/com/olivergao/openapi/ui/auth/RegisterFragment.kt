@@ -10,7 +10,7 @@ import com.olivergao.openapi.R
 /**
  * A simple [Fragment] subclass.
  */
-class RegisterFragment : Fragment() {
+class RegisterFragment : BaseAuthFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
