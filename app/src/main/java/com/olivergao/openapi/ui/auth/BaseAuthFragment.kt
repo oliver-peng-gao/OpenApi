@@ -23,6 +23,5 @@ abstract class BaseAuthFragment : DaggerFragment() {
         viewModel = requireActivity().run {
             ViewModelProvider(this, authViewModelFactory).get(AuthViewModel::class.java)
         }
-
     }
 }
