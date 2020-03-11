@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.olivergao.openapi.R
 import com.olivergao.openapi.di.auth.AuthViewModelFactory
+import com.olivergao.openapi.ui.BaseActivity
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity() {

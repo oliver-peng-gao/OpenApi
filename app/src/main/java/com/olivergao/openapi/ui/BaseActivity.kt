@@ -1,4 +1,4 @@
-package com.olivergao.openapi.ui.auth
+package com.olivergao.openapi.ui
 
 import dagger.android.support.DaggerAppCompatActivity
 
