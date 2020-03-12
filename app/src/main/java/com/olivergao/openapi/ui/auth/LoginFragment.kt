@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.olivergao.openapi.R
+import com.olivergao.openapi.models.AuthToken
 import com.olivergao.openapi.ui.auth.state.LoginFields
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -27,6 +28,9 @@ class LoginFragment : BaseAuthFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         subscribeObservers()
+        login_button.setOnClickListener {
+            viewModel.setAuthToken(AuthToken(1, "adsfasdfasfasfasfs"))
+        }
     }
 
     private fun subscribeObservers() {
