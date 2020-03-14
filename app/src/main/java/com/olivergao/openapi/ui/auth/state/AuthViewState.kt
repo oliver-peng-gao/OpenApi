@@ -24,7 +24,7 @@ data class RegistrationFields(
         }
     }
 
-    fun isValid(): String {
+    fun isValidForRegistration(): String {
         if (email.isNullOrEmpty()
             || username.isNullOrEmpty()
             || password.isNullOrEmpty()
