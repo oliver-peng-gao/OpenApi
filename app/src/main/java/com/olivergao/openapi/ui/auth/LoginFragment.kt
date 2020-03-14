@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.olivergao.openapi.R
-import com.olivergao.openapi.models.AuthToken
+import com.olivergao.openapi.ui.auth.state.AuthStateEvent
 import com.olivergao.openapi.ui.auth.state.LoginFields
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -29,7 +29,7 @@ class LoginFragment : BaseAuthFragment() {
 
         subscribeObservers()
         login_button.setOnClickListener {
-            viewModel.setAuthToken(AuthToken(1, "adsfasdfasfasfasfs"))
+            login()
         }
     }
 
@@ -40,6 +40,15 @@ class LoginFragment : BaseAuthFragment() {
                 loginFields.password.let { input_password.setText(it) }
             }
         })
+    }
+
+    fun login() {
+        viewModel.setStateEvent(
+            AuthStateEvent.LoginAttemptEvent(
+                input_email.text.toString(),
+                input_password.text.toString()
+            )
+        )
     }
 
     override fun onDestroyView() {

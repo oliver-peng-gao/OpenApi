@@ -5,8 +5,11 @@ data class Data<T>(val data: Event<T>?, val response: Event<Response>?)
 data class StateError(val response: Response)
 
 data class Response(val message: String?, val responseType: ResponseType)
-enum class ResponseType {
-    Toast, Dialog, None
+
+sealed class ResponseType {
+    object Toast : ResponseType()
+    object Dialog : ResponseType()
+    object None : ResponseType()
 }
 
 /**

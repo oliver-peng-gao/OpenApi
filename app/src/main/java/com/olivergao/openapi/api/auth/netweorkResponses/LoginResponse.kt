@@ -18,7 +18,7 @@ data class LoginResponse(
 
     @SerializedName("pk")
     @Expose
-    var pk: Int,
+    var pk: Int = -1,
 
     @SerializedName("email")
     @Expose
