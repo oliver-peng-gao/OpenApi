@@ -3,6 +3,7 @@ package com.olivergao.openapi.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import com.olivergao.openapi.R
 import com.olivergao.openapi.ui.BaseActivity
@@ -10,6 +11,13 @@ import com.olivergao.openapi.ui.auth.AuthActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+    override fun displayProgressBar(display: Boolean) {
+        if (display) {
+            progress_bar.visibility = View.VISIBLE
+        } else {
+            progress_bar.visibility = View.INVISIBLE
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

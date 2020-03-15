@@ -58,6 +58,7 @@ dependencies {
     implementation(Deps.Android.legacySupport)
     implementation(Deps.Android.fragment)
     implementation(Deps.Google.material)
+    implementation(Deps.MaterialDialog.materialDialog)
     implementation(Deps.Squareup.leakcanary)
 
     //test

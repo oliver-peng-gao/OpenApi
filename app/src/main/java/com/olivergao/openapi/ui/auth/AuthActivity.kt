@@ -3,6 +3,7 @@ package com.olivergao.openapi.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -13,6 +14,7 @@ import com.olivergao.openapi.di.auth.AuthViewModelFactory
 import com.olivergao.openapi.ui.BaseActivity
 import com.olivergao.openapi.ui.ResponseType
 import com.olivergao.openapi.ui.main.MainActivity
+import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener {
@@ -21,6 +23,14 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
     lateinit var authViewModelFactory: AuthViewModelFactory
 
     lateinit var viewModel: AuthViewModel
+
+    override fun displayProgressBar(display: Boolean) {
+        if (display) {
+            progress_bar.visibility = View.VISIBLE
+        } else {
+            progress_bar.visibility = View.INVISIBLE
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,27 +43,13 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
     private fun subscribeObservers() {
         viewModel.dataState.observe(this, Observer { dataState ->
+            onDataStateChanged(dataState)
             dataState.data?.let { data ->
                 data.data?.let { event ->
                     event.getContentIfNotHandled()?.let { authViewState ->
                         authViewState.authToken?.let { authToken ->
                             Log.d(TAG, "AuthActivity, DataState: $authToken")
                             viewModel.setAuthToken(authToken)
-                        }
-                    }
-                }
-                data.response?.let { event ->
-                    event.getContentIfNotHandled()?.let { response ->
-                        when (response.responseType) {
-                            is ResponseType.Toast -> {
-
-                            }
-                            is ResponseType.Dialog -> {
-
-                            }
-                            is ResponseType.None -> {
-                                Log.e(TAG, "AuthActivity, Response: ${response.message}: ")
-                            }
                         }
                     }
                 }

@@ -6,8 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-<!--        Customise for Material Dialog disable in the first commit-->
-<!--        <item name="md_color_button_text">@color/tealDark</item>-->
+        <item name="md_color_button_text">@color/tealDark</item>
     </style>
 
 

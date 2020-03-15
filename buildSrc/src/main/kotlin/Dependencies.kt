@@ -53,6 +53,10 @@ object Deps {
         }
     }
 
+    object MaterialDialog {
+        const val materialDialog = "com.afollestad.material-dialogs:core:3.1.0"
+    }
+
     object Squareup {
         const val leakcanary = "com.squareup.leakcanary:leakcanary-android:2.2"
 
