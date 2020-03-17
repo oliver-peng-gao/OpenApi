@@ -13,7 +13,7 @@ import com.olivergao.openapi.util.AbsentLiveData
 import javax.inject.Inject
 
 class AuthViewModel
-@Inject constructor(val authRepository: AuthRepository) :
+@Inject constructor(private val authRepository: AuthRepository) :
     BaseViewModel<AuthStateEvent, AuthViewState>() {
 
     override fun initNewViewState(): AuthViewState {
@@ -34,7 +34,7 @@ class AuthViewModel
                 )
             }
             is AuthStateEvent.CheckPreviousAuthEvent -> {
-                AbsentLiveData.create()
+                authRepository.checkPreviousAuthUser()
             }
         }
     }

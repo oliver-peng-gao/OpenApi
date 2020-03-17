@@ -1,6 +1,8 @@
 package com.olivergao.openapi.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
@@ -14,6 +16,7 @@ import com.olivergao.openapi.persistance.AppDatabase.Companion.DATABASE_NAME
 import com.olivergao.openapi.persistance.AuthTokenDao
 import com.olivergao.openapi.util.Constants
 import com.olivergao.openapi.util.LiveDataCallAdapterFactory
+import com.olivergao.openapi.util.PreferenceKeys
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -77,4 +80,12 @@ class AppModule {
             .setDefaultRequestOptions(requestOptions)
     }
 
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(application: Application): SharedPreferences {
+        return application.getSharedPreferences(
+            PreferenceKeys.APP_PREFERENCES,
+            Context.MODE_PRIVATE
+        )
+    }
 }

@@ -1,5 +1,6 @@
 package com.olivergao.openapi.di.auth
 
+import android.content.SharedPreferences
 import com.olivergao.openapi.api.auth.OpenApiAuthService
 import com.olivergao.openapi.persistance.AccountDao
 import com.olivergao.openapi.persistance.AuthTokenDao
@@ -24,13 +25,15 @@ class AuthModule {
         sessionManager: SessionManager,
         authTokenDao: AuthTokenDao,
         accountPropertiesDao: AccountDao,
-        openApiAuthService: OpenApiAuthService
+        openApiAuthService: OpenApiAuthService,
+        sharedPreferences: SharedPreferences
     ): AuthRepository {
         return AuthRepository(
             authTokenDao,
             accountPropertiesDao,
             openApiAuthService,
-            sessionManager
+            sessionManager,
+            sharedPreferences
         )
     }
 

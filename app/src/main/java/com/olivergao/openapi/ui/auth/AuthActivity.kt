@@ -12,7 +12,7 @@ import androidx.navigation.findNavController
 import com.olivergao.openapi.R
 import com.olivergao.openapi.di.auth.AuthViewModelFactory
 import com.olivergao.openapi.ui.BaseActivity
-import com.olivergao.openapi.ui.ResponseType
+import com.olivergao.openapi.ui.auth.state.AuthStateEvent
 import com.olivergao.openapi.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
@@ -39,6 +39,7 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         viewModel = ViewModelProvider(this, authViewModelFactory).get(AuthViewModel::class.java)
         findNavController(R.id.fragment_container).addOnDestinationChangedListener(this)
         subscribeObservers()
+        checkPrevAuthUser()
     }
 
     private fun subscribeObservers() {
@@ -68,6 +69,10 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
                 navMainActivity()
             }
         })
+    }
+
+    private fun checkPrevAuthUser() {
+        viewModel.setStateEvent(AuthStateEvent.CheckPreviousAuthEvent)
     }
 
     private fun navMainActivity() {
