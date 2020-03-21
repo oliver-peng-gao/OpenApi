@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 
 object Deps {
     object Versions {
-        const val androidGradle = "4.1.0-alpha02"
+        const val androidGradle = "4.1.0-alpha03"
         const val kotlin = "1.3.70"
         const val dagger = "2.22"
         const val retrofit = "2.7.1"
