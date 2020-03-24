@@ -1,9 +1,12 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.github.ben-manes.versions")
 }
 
 android {
@@ -57,6 +60,7 @@ dependencies {
     implementation(Deps.Android.constraintlayout)
     implementation(Deps.Android.legacySupport)
     implementation(Deps.Android.fragment)
+    implementation(Deps.Android.fragmentKtx)
     implementation(Deps.Google.material)
     implementation(Deps.MaterialDialog.materialDialog)
     implementation(Deps.Squareup.leakcanary)
@@ -67,19 +71,19 @@ dependencies {
     androidTestImplementation(Deps.Android.Test.Espresso.core)
 
     //navigation
-    implementation(Deps.Google.Navigation.fragment)
-    implementation(Deps.Google.Navigation.ui)
+    implementation(Deps.Android.Navigation.fragment)
+    implementation(Deps.Android.Navigation.ui)
 
     //room
-    implementation(Deps.Google.Room.runtime)
-    implementation(Deps.Google.Room.room)
-    kapt(Deps.Google.Room.compile)
-    testImplementation(Deps.Google.Room.roomTesting)
+    implementation(Deps.Android.Room.runtime)
+    implementation(Deps.Android.Room.room)
+    kapt(Deps.Android.Room.compile)
+    testImplementation(Deps.Android.Room.roomTesting)
 
     //lifecycle
-    implementation(Deps.Google.Lifecycle.viewModel)
-    implementation(Deps.Google.Lifecycle.liveData)
-    implementation(Deps.Google.Lifecycle.common)
+    implementation(Deps.Android.Lifecycle.viewModel)
+    implementation(Deps.Android.Lifecycle.liveData)
+    implementation(Deps.Android.Lifecycle.common)
 
     //Dagger
     implementation(Deps.Google.Dagger.dagger)
@@ -96,4 +100,15 @@ dependencies {
     //Retrofit2
     implementation(Deps.Squareup.Retrofit.retrofit)
     implementation(Deps.Squareup.Retrofit.gsonConverter)
+}
+
+tasks.withType<DependencyUpdatesTask> {
+    checkForGradleUpdate = false
+    outputFormatter = "plain"
+    outputDir = "build/dependencyUpdates"
+    reportfileName = "report"
+
+//    rejectVersionIf {
+//        isNonStable(candidate.version) && !isNonStable(currentVersion)
+//    }
 }

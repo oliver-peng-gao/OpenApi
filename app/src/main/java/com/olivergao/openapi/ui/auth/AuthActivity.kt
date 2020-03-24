@@ -21,7 +21,6 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
 
     @Inject
     lateinit var authViewModelFactory: AuthViewModelFactory
-
     lateinit var viewModel: AuthViewModel
 
     override fun displayProgressBar(display: Boolean) {
@@ -32,6 +31,9 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         }
     }
 
+    override fun expandAppBar() {
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
@@ -40,6 +42,24 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
         findNavController(R.id.fragment_container).addOnDestinationChangedListener(this)
         subscribeObservers()
         checkPrevAuthUser()
+    }
+
+    override fun onDestinationChanged(
+            controller: NavController,
+            destination: NavDestination,
+            arguments: Bundle?
+    ) {
+        viewModel.cancelActiveJobs()
+    }
+
+    private fun checkPrevAuthUser() {
+        viewModel.setStateEvent(AuthStateEvent.CheckPreviousAuthEvent)
+    }
+
+    private fun navMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun subscribeObservers() {
@@ -69,23 +89,5 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
                 navMainActivity()
             }
         })
-    }
-
-    private fun checkPrevAuthUser() {
-        viewModel.setStateEvent(AuthStateEvent.CheckPreviousAuthEvent)
-    }
-
-    private fun navMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    override fun onDestinationChanged(
-        controller: NavController,
-        destination: NavDestination,
-        arguments: Bundle?
-    ) {
-        viewModel.cancelActiveJobs()
     }
 }

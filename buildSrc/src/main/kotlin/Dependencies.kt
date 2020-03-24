@@ -2,15 +2,16 @@ import org.gradle.api.JavaVersion
 
 object Deps {
     object Versions {
-        const val androidGradle = "4.1.0-alpha03"
-        const val kotlin = "1.3.70"
+        const val androidGradle = "3.6.1"
+        const val kotlin = "1.3.71"
         const val dagger = "2.22"
-        const val retrofit = "2.7.1"
-        const val glide = "4.9.0"
-        const val room = "2.2.4"
-        const val navigation = "2.2.1"
+        const val retrofit = "2.8.0"
+        const val glide = "4.11.0"
+        const val room = "2.2.5"
+        const val navigation = "2.3.0-alpha04"
         const val lifecycle = "2.2.0"
         const val espresso = "3.2.0"
+        const val dependencyUpdates = "0.28.0"
         val java = JavaVersion.VERSION_1_8
     }
 
@@ -26,6 +27,8 @@ object Deps {
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         const val navSafeArgs =
             "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
+        const val dependencyUpdates =
+            "com.github.ben-manes:gradle-versions-plugin:${Versions.dependencyUpdates}"
     }
 
     object Kotlin {
@@ -37,7 +40,8 @@ object Deps {
         const val androidXCore = "androidx.core:core-ktx:1.2.0"
         const val appCompact = "androidx.appcompat:appcompat:1.1.0"
         const val legacySupport = "androidx.legacy:legacy-support-v4:1.0.0"
-        const val fragment = "androidx.fragment:fragment:1.2.2"
+        const val fragment = "androidx.fragment:fragment:1.2.3"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.2.3"
 
         object Test {
             const val core = "androidx.test:core:1.2.0"
@@ -51,10 +55,29 @@ object Deps {
                 const val contrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
             }
         }
+
+        object Room {
+            const val runtime = "androidx.room:room-runtime:${Versions.room}"
+            const val compile = "androidx.room:room-compiler:${Versions.room}"
+            const val room = "androidx.room:room-ktx:${Versions.room}"
+            const val roomTesting = "androidx.room:room-testing:${Versions.room}"
+        }
+
+        object Navigation {
+            const val fragment =
+                "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+            const val ui = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+        }
+
+        object Lifecycle {
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+            const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+            const val common = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
+        }
     }
 
     object MaterialDialog {
-        const val materialDialog = "com.afollestad.material-dialogs:core:3.1.0"
+        const val materialDialog = "com.afollestad.material-dialogs:core:3.3.0"
     }
 
     object Squareup {
@@ -77,24 +100,6 @@ object Deps {
             const val processor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
         }
 
-        object Room {
-            const val runtime = "androidx.room:room-runtime:${Versions.room}"
-            const val compile = "androidx.room:room-compiler:${Versions.room}"
-            const val room = "androidx.room:room-ktx:${Versions.room}"
-            const val roomTesting = "androidx.room:room-testing:${Versions.room}"
-        }
-
-        object Navigation {
-            const val fragment =
-                "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
-            const val ui = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
-        }
-
-        object Lifecycle {
-            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
-            const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
-            const val common = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
-        }
     }
 
     object Glide {

@@ -67,6 +67,7 @@
 
     <string name="forgot_password">Forgot password</string>
     <string name="edit">Edit</string>
+    <string name="go_to_view_blog_fragment">go to ViewBlogFragment</string>
 
 </resources>
 
