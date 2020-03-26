@@ -65,15 +65,9 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
     private fun subscribeObservers() {
         viewModel.dataState.observe(this, Observer { dataState ->
             onDataStateChanged(dataState)
-            dataState.data?.let { data ->
-                data.data?.let { event ->
-                    event.getContentIfNotHandled()?.let { authViewState ->
-                        authViewState.authToken?.let { authToken ->
-                            Log.d(TAG, "AuthActivity, DataState: $authToken")
-                            viewModel.setAuthToken(authToken)
-                        }
-                    }
-                }
+            dataState.data?.data?.getContentIfNotHandled()?.authToken?.let { authToken ->
+                Log.d(TAG, "AuthActivity, DataState: $authToken")
+                viewModel.setAuthToken(authToken)
             }
         })
 

@@ -48,9 +48,11 @@ class AuthRepository
         }
 
         return object :
-            NetworkBoundResource<LoginResponse, AuthViewState>(
-                sessionManager.isConnectedToInternet(),
-                true
+            NetworkBoundResource<LoginResponse, Any, AuthViewState>(
+                isNetworkAvailable = sessionManager.isConnectedToInternet(),
+                isNetworkRequest = true,
+                shouldLoadFromCache = false,
+                shouldCancelIfNoNetwork = true
             ) {
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<LoginResponse>) {
                 Log.d(TAG, "handleLoginApiSuccessResponse: $response")
@@ -83,13 +85,23 @@ class AuthRepository
                 }
             }
 
-            override fun createCall(): LiveData<GenericApiResponse<LoginResponse>> {
+            override suspend fun createCall(): LiveData<GenericApiResponse<LoginResponse>> {
                 return openApiAuthService.login(email, password)
             }
 
             override fun setJob(job: Job) {
                 repositoryJob?.cancel()
                 repositoryJob = job
+            }
+
+            override suspend fun createCacheRequestAndReturn() {
+            }
+
+            override fun loadFromCache(): LiveData<AuthViewState> {
+                return AbsentLiveData.create()
+            }
+
+            override suspend fun updateLocalDb(cacheObject: Any?) {
             }
         }.asLiveData()
     }
@@ -106,9 +118,11 @@ class AuthRepository
             return returnErrorResponse(registrationFieldsErrors, ResponseType.Dialog)
         }
         return object :
-            NetworkBoundResource<RegistrationResponse, AuthViewState>(
-                sessionManager.isConnectedToInternet(),
-                true
+            NetworkBoundResource<RegistrationResponse, Any, AuthViewState>(
+                isNetworkAvailable = sessionManager.isConnectedToInternet(),
+                isNetworkRequest = true,
+                shouldLoadFromCache = false,
+                shouldCancelIfNoNetwork = true
             ) {
             override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<RegistrationResponse>) {
                 Log.d(TAG, "handleRegistrationApiSuccessResponse: $response")
@@ -132,13 +146,23 @@ class AuthRepository
                 )
             }
 
-            override fun createCall(): LiveData<GenericApiResponse<RegistrationResponse>> {
+            override suspend fun createCall(): LiveData<GenericApiResponse<RegistrationResponse>> {
                 return openApiAuthService.register(email, username, password, confirmPassword)
             }
 
             override fun setJob(job: Job) {
                 repositoryJob?.cancel()
                 repositoryJob = job
+            }
+
+            override suspend fun createCacheRequestAndReturn() {
+            }
+
+            override fun loadFromCache(): LiveData<AuthViewState> {
+                return AbsentLiveData.create()
+            }
+
+            override suspend fun updateLocalDb(cacheObject: Any?) {
             }
         }.asLiveData()
     }
@@ -155,9 +179,11 @@ class AuthRepository
             Log.d(TAG, "checkPreviousAuthUser: No previous authenticated user found...")
             return returnNoTokenFound()
         } else {
-            return object : NetworkBoundResource<Void, AuthViewState>(
-                sessionManager.isConnectedToInternet(),
-                false
+            return object : NetworkBoundResource<Void, Any, AuthViewState>(
+                isNetworkAvailable = sessionManager.isConnectedToInternet(),
+                isNetworkRequest = false,
+                shouldLoadFromCache = false,
+                shouldCancelIfNoNetwork = true
             ) {
                 override suspend fun createCacheRequestAndReturn() {
                     val account = accountDao.searchByEmail(prevAuthUserEmail)
@@ -179,7 +205,7 @@ class AuthRepository
                     }
                 }
 
-                override fun createCall(): LiveData<GenericApiResponse<Void>> {
+                override suspend fun createCall(): LiveData<GenericApiResponse<Void>> {
                     return AbsentLiveData.create()
                 }
 
@@ -187,7 +213,32 @@ class AuthRepository
                     repositoryJob?.cancel()
                     repositoryJob = job
                 }
+
+                override suspend fun handleApiSuccessResponse(response: ApiSuccessResponse<Void>) {
+                }
+
+                override fun loadFromCache(): LiveData<AuthViewState> {
+                    return AbsentLiveData.create()
+                }
+
+                override suspend fun updateLocalDb(cacheObject: Any?) {
+                }
             }.asLiveData()
+        }
+    }
+
+    private fun returnErrorResponse(
+        loginFieldsErrors: String,
+        responseType: ResponseType
+    ): LiveData<DataState<AuthViewState>> {
+        Log.d(TAG, "returnErrorResponse: error:$loginFieldsErrors type:$responseType")
+        return object : LiveData<DataState<AuthViewState>>() {
+            override fun onActive() {
+                super.onActive()
+                value = DataState.error(
+                    Response(loginFieldsErrors, responseType)
+                )
+            }
         }
     }
 
@@ -205,20 +256,5 @@ class AuthRepository
 
     private fun saveAuthenticatedUserToPrefs(email: String) {
         sharedPreferences.edit { putString(PreferenceKeys.PREVIOUS_AUTH_USER, email) }
-    }
-
-    private fun returnErrorResponse(
-        loginFieldsErrors: String,
-        responseType: ResponseType
-    ): LiveData<DataState<AuthViewState>> {
-        Log.d(TAG, "returnErrorResponse: error:$loginFieldsErrors type:$responseType")
-        return object : LiveData<DataState<AuthViewState>>() {
-            override fun onActive() {
-                super.onActive()
-                value = DataState.error(
-                    Response(loginFieldsErrors, responseType)
-                )
-            }
-        }
     }
 }

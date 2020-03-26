@@ -5,7 +5,7 @@ object Deps {
         const val androidGradle = "3.6.1"
         const val kotlin = "1.3.71"
         const val dagger = "2.22"
-        const val retrofit = "2.8.0"
+        const val retrofit = "2.8.1"
         const val glide = "4.11.0"
         const val room = "2.2.5"
         const val navigation = "2.3.0-alpha04"
