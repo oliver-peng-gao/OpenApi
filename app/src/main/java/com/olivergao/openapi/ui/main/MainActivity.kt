@@ -15,6 +15,7 @@ import com.olivergao.openapi.ui.main.account.ChangePasswordFragment
 import com.olivergao.openapi.ui.main.account.UpdateAccountFragment
 import com.olivergao.openapi.ui.main.blog.UpdateBlogFragment
 import com.olivergao.openapi.ui.main.blog.ViewBlogFragment
+import com.olivergao.openapi.util.BOTTOM_NAV_BACKSTACK_KEY
 import com.olivergao.openapi.util.BottomNavController
 import com.olivergao.openapi.util.BottomNavController.*
 import com.olivergao.openapi.util.setUpNavigation
@@ -35,6 +36,39 @@ class MainActivity : BaseActivity(),
         )
     }
 
+    private fun navAuthActivity() {
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun setupActionBar() {
+        setSupportActionBar(tool_bar)
+    }
+
+    private fun setupBottomNavigationView(savedInstanceState: Bundle?) {
+        bottom_navigation_view.setUpNavigation(bottomNavController, this)
+        if (savedInstanceState == null) {
+            bottomNavController.setupBottomNavigationBackStack(null)
+            bottomNavController.onNavigationItemSelected()
+        } else {
+            (savedInstanceState[BOTTOM_NAV_BACKSTACK_KEY] as IntArray?)?.let { items ->
+                val backStack = BackStack()
+                backStack.addAll(items.toTypedArray())
+                bottomNavController.setupBottomNavigationBackStack(backStack)
+            }
+        }
+    }
+
+    private fun subscribeObservers() {
+        sessionManager.cachedToken.observe(this, Observer {
+            Log.d(TAG, "MainActivity subscribeObservers: AuthToken: $it")
+            if (it == null || it.account_pk == -1 || it.token == null) {
+                navAuthActivity()
+            }
+        })
+    }
+
     override fun displayProgressBar(display: Boolean) {
         if (display) {
             progress_bar.visibility = View.VISIBLE
@@ -43,16 +77,8 @@ class MainActivity : BaseActivity(),
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        setupActionBar()
-        bottom_navigation_view.setUpNavigation(bottomNavController, this)
-        if (savedInstanceState == null) {
-            bottomNavController.onNavigationItemSelected()
-        }
-        subscribeObservers()
+    override fun expandAppBar() {
+        app_bar.setExpanded(true)
     }
 
     override fun getNavGraphId(itemId: Int) = when (itemId) {
@@ -62,8 +88,26 @@ class MainActivity : BaseActivity(),
         else -> R.navigation.nav_blog
     }
 
+    override fun onBackPressed() = bottomNavController.onBackPressed()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        setupActionBar()
+        setupBottomNavigationView(savedInstanceState)
+        subscribeObservers()
+    }
+
     override fun onGraphChanged() {
         expandAppBar()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onReselectNavItem(navController: NavController, fragment: Fragment) =
@@ -85,35 +129,11 @@ class MainActivity : BaseActivity(),
                 }
             }
 
-    override fun onBackPressed() = bottomNavController.onBackPressed()
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun expandAppBar() {
-        app_bar.setExpanded(true)
-    }
-
-    private fun navAuthActivity() {
-        val intent = Intent(this, AuthActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    private fun setupActionBar() {
-        setSupportActionBar(tool_bar)
-    }
-
-    private fun subscribeObservers() {
-        sessionManager.cachedToken.observe(this, Observer {
-            Log.d(TAG, "MainActivity subscribeObservers: AuthToken: $it")
-            if (it == null || it.account_pk == -1 || it.token == null) {
-                navAuthActivity()
-            }
-        })
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putIntArray(
+                BOTTOM_NAV_BACKSTACK_KEY,
+                bottomNavController.navigationBackStack.toIntArray()
+        )
+        super.onSaveInstanceState(outState)
     }
 }

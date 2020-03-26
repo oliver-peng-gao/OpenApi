@@ -3,6 +3,7 @@ package com.olivergao.openapi.util
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.os.Parcelable
 import androidx.annotation.IdRes
 import androidx.annotation.NavigationRes
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.olivergao.openapi.R
 import com.olivergao.openapi.ui.displayToast
+import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -25,8 +27,11 @@ import kotlinx.coroutines.launch
  * Class credit: Allan Veloso
  * I took the concept from Allan Veloso and made alterations to fit our needs.
  * https://stackoverflow.com/questions/50577356/android-jetpack-navigation-bottomnavigationview-with-youtube-or-instagram-like#_=_
- * @property navigationBackStack: Backstack for the bottom navigation
  */
+
+const val BOTTOM_NAV_BACKSTACK_KEY =
+    "com.olivergao.openapi.util.BottomNavController.bottom_nav_backstack"
+
 class BottomNavController(
     val context: Context,
     @IdRes val containerId: Int,
@@ -36,11 +41,11 @@ class BottomNavController(
 ) {
 
     private val TAG: String = "AppDebug"
-    lateinit var activity: Activity
     private var exitCount = 0
+    lateinit var activity: Activity
     lateinit var fragmentManager: FragmentManager
     lateinit var navItemChangedListener: OnNavigationItemChanged
-    private val navigationBackStack = BackStack.of(appStartDestinationId)
+    lateinit var navigationBackStack: BackStack
 
     init {
         if (context is Activity) {
@@ -105,7 +110,12 @@ class BottomNavController(
         return true
     }
 
-    private class BackStack : ArrayList<Int>() {
+    fun setupBottomNavigationBackStack(previousBackStack: BackStack?) {
+        navigationBackStack = previousBackStack ?: BackStack.of(appStartDestinationId)
+    }
+
+    @Parcelize
+    class BackStack : ArrayList<Int>(), Parcelable {
 
         fun moveLast(item: Int) {
             remove(item)
@@ -139,6 +149,7 @@ class BottomNavController(
     interface OnNavigationReselectedListener {
         fun onReselectNavItem(navController: NavController, fragment: Fragment)
     }
+
 }
 
 fun BottomNavigationView.setUpNavigation(

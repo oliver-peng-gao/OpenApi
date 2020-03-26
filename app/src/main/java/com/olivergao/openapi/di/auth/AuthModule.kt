@@ -15,7 +15,7 @@ class AuthModule {
 
     @AuthScope
     @Provides
-    fun provideFakeApiService(builder: Retrofit.Builder): OpenApiAuthService {
+    fun provideAuthApiService(builder: Retrofit.Builder): OpenApiAuthService {
         return builder.build().create(OpenApiAuthService::class.java)
     }
 
@@ -24,13 +24,13 @@ class AuthModule {
     fun provideAuthRepository(
         sessionManager: SessionManager,
         authTokenDao: AuthTokenDao,
-        accountPropertiesDao: AccountDao,
+        accountDao: AccountDao,
         openApiAuthService: OpenApiAuthService,
         sharedPreferences: SharedPreferences
     ): AuthRepository {
         return AuthRepository(
             authTokenDao,
-            accountPropertiesDao,
+            accountDao,
             openApiAuthService,
             sessionManager,
             sharedPreferences
