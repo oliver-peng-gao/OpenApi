@@ -30,11 +30,3 @@ interface AppComponent : AndroidInjector<BaseApplication> {
         fun build(): AppComponent
     }
 }
-
-
-
-
-
-
-
-

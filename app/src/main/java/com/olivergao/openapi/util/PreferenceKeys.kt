@@ -11,6 +11,5 @@ class PreferenceKeys {
         const val PREVIOUS_AUTH_USER: String = "com.olivergao.openapi.PREVIOUS_AUTH_USER"
         const val BLOG_FILTER: String = "com.olivergao.openapi.BLOG_FILTER"
         const val BLOG_ORDER: String = "com.olivergao.openapi.BLOG_ORDER"
-
     }
 }

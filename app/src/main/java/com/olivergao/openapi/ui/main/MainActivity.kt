@@ -22,17 +22,17 @@ import com.olivergao.openapi.util.setUpNavigation
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(),
-        NavGraphProvider,
-        OnNavigationGraphChanged,
-        OnNavigationReselectedListener {
+    NavGraphProvider,
+    OnNavigationGraphChanged,
+    OnNavigationReselectedListener {
 
     private val bottomNavController by lazy(LazyThreadSafetyMode.NONE) {
         BottomNavController(
-                this,
-                R.id.main_nav_host_fragment,
-                R.id.nav_blog,
-                this,
-                this
+            this,
+            R.id.main_nav_host_fragment,
+            R.id.nav_blog,
+            this,
+            this
         )
     }
 
@@ -111,28 +111,27 @@ class MainActivity : BaseActivity(),
     }
 
     override fun onReselectNavItem(navController: NavController, fragment: Fragment) =
-            when (fragment) {
-                is ViewBlogFragment -> {
-                    navController.navigate(R.id.action_viewBlogFragment_to_blogFragment)
-                }
-                is UpdateBlogFragment -> {
-                    navController.navigate(R.id.action_updateBlogFragment_to_blogFragment)
-                }
-                is UpdateAccountFragment -> {
-                    navController.navigate(R.id.action_updateAccountFragment_to_accountFragment)
-                }
-                is ChangePasswordFragment -> {
-                    navController.navigate(R.id.action_changePasswordFragment_to_accountFragment)
-                }
-                else -> {
-
-                }
+        when (fragment) {
+            is ViewBlogFragment -> {
+                navController.navigate(R.id.action_viewBlogFragment_to_blogFragment)
             }
+            is UpdateBlogFragment -> {
+                navController.navigate(R.id.action_updateBlogFragment_to_blogFragment)
+            }
+            is UpdateAccountFragment -> {
+                navController.navigate(R.id.action_updateAccountFragment_to_accountFragment)
+            }
+            is ChangePasswordFragment -> {
+                navController.navigate(R.id.action_changePasswordFragment_to_accountFragment)
+            }
+            else -> {
+            }
+        }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putIntArray(
-                BOTTOM_NAV_BACKSTACK_KEY,
-                bottomNavController.navigationBackStack.toIntArray()
+            BOTTOM_NAV_BACKSTACK_KEY,
+            bottomNavController.navigationBackStack.toIntArray()
         )
         super.onSaveInstanceState(outState)
     }

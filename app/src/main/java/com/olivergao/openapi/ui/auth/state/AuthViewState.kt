@@ -25,10 +25,10 @@ data class RegistrationFields(
     }
 
     fun isValidForRegistration(): String {
-        if (email.isNullOrEmpty()
-            || username.isNullOrEmpty()
-            || password.isNullOrEmpty()
-            || confirmPassword.isNullOrEmpty()
+        if (email.isNullOrEmpty() ||
+            username.isNullOrEmpty() ||
+            password.isNullOrEmpty() ||
+            confirmPassword.isNullOrEmpty()
         ) {
             return RegistrationError.mustFillAllFields()
         }
@@ -55,14 +55,13 @@ data class LoginFields(
             fun none(): String {
                 return "None"
             }
-
         }
     }
 
     fun isValidForLogin(): String {
 
-        if (email.isNullOrEmpty()
-            || password.isNullOrEmpty()
+        if (email.isNullOrEmpty() ||
+            password.isNullOrEmpty()
         ) {
 
             return LoginError.mustFillAllFields()

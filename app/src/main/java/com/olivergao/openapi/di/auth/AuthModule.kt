@@ -36,5 +36,4 @@ class AuthModule {
             sharedPreferences
         )
     }
-
 }

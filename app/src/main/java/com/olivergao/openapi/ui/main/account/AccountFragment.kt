@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.navigation.fragment.findNavController
 import com.olivergao.openapi.R
-import com.olivergao.openapi.session.SessionManager
 import kotlinx.android.synthetic.main.fragment_account.*
-import javax.inject.Inject
 
 class AccountFragment : BaseAccountFragment() {
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment

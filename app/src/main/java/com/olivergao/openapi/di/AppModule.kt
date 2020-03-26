@@ -19,9 +19,9 @@ import com.olivergao.openapi.util.LiveDataCallAdapterFactory
 import com.olivergao.openapi.util.PreferenceKeys
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 class AppModule {

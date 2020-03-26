@@ -3,10 +3,10 @@ package com.olivergao.openapi.ui
 import android.util.Log
 import com.olivergao.openapi.session.SessionManager
 import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 abstract class BaseActivity : DaggerAppCompatActivity(), DataStateChangedListener {
     val TAG: String = "BaseActivity"

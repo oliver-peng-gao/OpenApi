@@ -1,6 +1,9 @@
 package com.olivergao.openapi.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 
 abstract class BaseViewModel<StateEvent, ViewState> : ViewModel() {
     private val TAG: String = "AppDebug"

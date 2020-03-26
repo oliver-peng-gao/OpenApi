@@ -7,6 +7,7 @@ plugins {
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("com.github.ben-manes.versions")
+    id("org.jmailen.kotlinter") version "2.3.2"
 }
 
 android {
@@ -100,6 +101,15 @@ dependencies {
     //Retrofit2
     implementation(Deps.Squareup.Retrofit.retrofit)
     implementation(Deps.Squareup.Retrofit.gsonConverter)
+}
+
+kotlinter {
+    ignoreFailures = false
+    indentSize = 4
+    reporters = arrayOf("checkstyle", "plain")
+    experimentalRules = false
+    fileBatchSize = 30
+    disabledRules = arrayOf("no-wildcard-imports")
 }
 
 tasks.withType<DependencyUpdatesTask> {

@@ -26,8 +26,8 @@ import com.olivergao.openapi.util.ErrorHandling.Companion.GENERIC_AUTH_ERROR
 import com.olivergao.openapi.util.GenericApiResponse
 import com.olivergao.openapi.util.PreferenceKeys
 import com.olivergao.openapi.util.SuccessHandling.Companion.RESPONSE_CHECK_PREVIOUS_AUTH_USER_DONE
-import kotlinx.coroutines.Job
 import javax.inject.Inject
+import kotlinx.coroutines.Job
 
 class AuthRepository
 @Inject constructor(
@@ -187,7 +187,6 @@ class AuthRepository
                     repositoryJob?.cancel()
                     repositoryJob = job
                 }
-
             }.asLiveData()
         }
     }

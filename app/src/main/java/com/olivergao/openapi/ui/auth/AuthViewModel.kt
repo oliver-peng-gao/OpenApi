@@ -9,7 +9,6 @@ import com.olivergao.openapi.ui.auth.state.AuthStateEvent
 import com.olivergao.openapi.ui.auth.state.AuthViewState
 import com.olivergao.openapi.ui.auth.state.LoginFields
 import com.olivergao.openapi.ui.auth.state.RegistrationFields
-import com.olivergao.openapi.util.AbsentLiveData
 import javax.inject.Inject
 
 class AuthViewModel

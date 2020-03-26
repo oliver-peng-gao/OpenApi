@@ -40,5 +40,4 @@ abstract class BaseBlogFragment : DaggerFragment() {
             Log.e(TAG, "$context must implement DataStateChangeListener")
         }
     }
-
 }

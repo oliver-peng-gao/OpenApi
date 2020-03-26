@@ -26,7 +26,6 @@ class ErrorHandling {
         const val ERROR_CHECK_NETWORK_CONNECTION = "Check network connection."
         const val ERROR_UNKNOWN = "Unknown error"
 
-
         fun isNetworkError(msg: String): Boolean {
             return when {
                 msg.contains(UNABLE_TO_RESOLVE_HOST) -> true
@@ -54,5 +53,4 @@ class ErrorHandling {
             return PAGINATION_DONE_ERROR == parseDetailJsonResponse(errorResponse)
         }
     }
-
 }

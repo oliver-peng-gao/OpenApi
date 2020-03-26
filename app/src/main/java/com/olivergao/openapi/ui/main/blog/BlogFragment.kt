@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.fragment_blog.*
 class BlogFragment : BaseBlogFragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -26,7 +27,6 @@ class BlogFragment : BaseBlogFragment() {
             try {
                 findNavController().navigate(R.id.action_blogFragment_to_viewBlogFragment)
             } catch (e: Exception) {
-
             }
         }
     }

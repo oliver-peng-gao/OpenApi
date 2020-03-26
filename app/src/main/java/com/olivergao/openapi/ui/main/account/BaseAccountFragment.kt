@@ -52,5 +52,3 @@ abstract class BaseAccountFragment : DaggerFragment() {
         }
     }
 }
-
-

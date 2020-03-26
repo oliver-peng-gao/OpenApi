@@ -21,5 +21,4 @@ abstract class AuthFragmentBuildersModule {
 
     @ContributesAndroidInjector()
     abstract fun contributeForgotPasswordFragment(): ForgotPasswordFragment
-
 }

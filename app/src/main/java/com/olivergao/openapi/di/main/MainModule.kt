@@ -1,7 +1,6 @@
 package com.olivergao.openapi.di.main
 
 import com.olivergao.openapi.api.main.OpenApiMainService
-import com.olivergao.openapi.di.auth.AuthScope
 import com.olivergao.openapi.persistance.AccountDao
 import com.olivergao.openapi.repository.main.AccountRepository
 import com.olivergao.openapi.session.SessionManager

@@ -104,7 +104,7 @@ class BottomNavController(
         // Update checked icon
         navItemChangedListener.onItemChanged(itemId)
 
-        //Communicate with Activity
+        // Communicate with Activity
         graphChangedListener?.onGraphChanged()
 
         return true
@@ -149,7 +149,6 @@ class BottomNavController(
     interface OnNavigationReselectedListener {
         fun onReselectNavItem(navController: NavController, fragment: Fragment)
     }
-
 }
 
 fun BottomNavigationView.setUpNavigation(

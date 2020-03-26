@@ -14,8 +14,8 @@ import com.olivergao.openapi.di.auth.AuthViewModelFactory
 import com.olivergao.openapi.ui.BaseActivity
 import com.olivergao.openapi.ui.auth.state.AuthStateEvent
 import com.olivergao.openapi.ui.main.MainActivity
-import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener {
 
@@ -45,9 +45,9 @@ class AuthActivity : BaseActivity(), NavController.OnDestinationChangedListener 
     }
 
     override fun onDestinationChanged(
-            controller: NavController,
-            destination: NavDestination,
-            arguments: Bundle?
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
     ) {
         viewModel.cancelActiveJobs()
     }

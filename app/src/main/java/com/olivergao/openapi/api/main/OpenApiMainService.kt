@@ -1,4 +1,3 @@
 package com.olivergao.openapi.api.main
 
-interface OpenApiMainService {
-}
+interface OpenApiMainService

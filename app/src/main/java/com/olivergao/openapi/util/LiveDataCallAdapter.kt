@@ -1,12 +1,12 @@
 package com.olivergao.openapi.util
 
 import androidx.lifecycle.LiveData
+import java.lang.reflect.Type
+import java.util.concurrent.atomic.AtomicBoolean
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.reflect.Type
-import java.util.concurrent.atomic.AtomicBoolean
 
 class LiveDataCallAdapter<R>(private val responseType: Type) :
     CallAdapter<R, LiveData<GenericApiResponse<R>>> {
